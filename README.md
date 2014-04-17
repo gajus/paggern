@@ -7,7 +7,16 @@
 
 Pattern interpreter for generating random strings.
 
-Extracted tokens describe the required pattern of the string.
+## Generator
+
+```php
+generator = new \Gajus\Parsley\Generator();
+$codes = $generator->generateFromPattern('FOO[A-Z]{10}[0-9]{2}', 100);
+```
+
+The above example will generate an array containing 100 codes, each prefixed with "FOO", followed by 10 characters from "ABCDEFGHKMNOPRSTUVWXYZ23456789" haystack and 2 numbers from "0123456789" haystack.
+
+Parsley utilises [RandomLib](https://github.com/ircmaxell/RandomLib) to generate the random character pool.
 
 ## Supported Tokens
 
