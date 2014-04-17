@@ -5,12 +5,64 @@
 [![Latest Stable Version](https://poser.pugx.org/gajus/parsley/version.png)](https://packagist.org/packages/gajus/parsley)
 [![License](https://poser.pugx.org/gajus/parsley/license.png)](https://packagist.org/packages/gajus/parsley)
 
+Pattern interpreter for generating random strings.
+
+Extracted tokens describe the required pattern of the string.
+
 ## Supported Tokens
 
+### Literal
+
+Pattern can consist of literal characters, e.g. prefix of suffix of the string.
+
+```php
+$parser->tokenise('abc');
 ```
-a-z
-A-Z
-0-9
+
+```php
+output
+```
+
+The above pattern insists that the string is literally "abc".
+
+### Range
+
+Range can be either numeric or ASCII.
+
+```php
+$parser->tokenise('[a-z]');
+```
+
+In the `[a-z]` example, string must be a character from "abcdefghijklmnopqrstuvwxyz" haystack.
+
+```php
+output
+```
+
+### Range with Repetition
+
+If the character must occur more than once, use repetition.
+
+```
+$parser->tokenise('[a-c]{3}');
+```
+
+In the `[a-z]{3}` example, string must consist of 3 characters from the "abc" haystack.
+
+### Character Classes
+
+Predefined character classes can be used instead of ranges.
+
+|Character Class|Range|
+|---|---|
+|`\U`|(unambiguous) "ABCDEFGHKMNOPRSTUVWXYZ23456789" (or A-Z0-9 excluding IJLQ01) describes characters that are unambiguously recognised regardless of the font or case-sensitivity. The designated use case is voucher codes.|
+
+### Character Classes with Repetition
+
+Similar to the Range with Repetition, Character Classes can be used with repetition, e.g.
+
+```php
+$parser->tokenise('\U{3}');
 ```
 
 ## Limitations

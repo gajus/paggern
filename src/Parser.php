@@ -18,42 +18,62 @@ class Parser {
      */
     public function tokenise ($subject) {
         preg_match_all('
-/
-    \[
-    (?<range_explicit_token>[^]]+)
-    \]
-    \{
-        (?<range_explicit_repetition>[0-9]+)
-    \}
-        |
-    \[
-    (?<range_implicit_token>[^]]+)
-    \]
-        |
-    (?<literal_string>[^[]+)
+        /
+                (?<class_explicit>\\\U)
+                \{
+                    (?<class_repetition>[0-9]+)
+                \}
+            |
+                (?<class_implicit>\\\U)
+            |
+                \[
+                    (?<range_token_explicit>[^]]+)
+                \]
+                \{
+                    (?<range_repetition>[0-9]+)
+                \}
+            |
+                \[
+                    (?<range_token_implicit>[^]]+)
+                \]
+            |
+                (?<literal_string>[^[]+)
 
-/x
+        /x
         ', $subject, $matches, \PREG_SET_ORDER);
 
         $tokens = [];
 
         foreach ($matches as $match) {
-            if (!empty($match['literal_string'])) {
+            
+            if (!empty($match['class_explicit'])) {
+                $tokens[] = [
+                    'type' => 'class',
+                    'class' => $match['class_explicit'],
+                    'repetition' => (int) $match['class_repetition']
+                ];
+            } else if (!empty($match['class_implicit'])) {
+                $tokens[] = [
+                    'type' => 'class',
+                    'class' => $match['class_implicit'],
+                    'repetition' => 1
+                ];
+            } else if (!empty($match['range_token_explicit'])) {
+                $tokens[] = [
+                    'type' => 'range',
+                    'token' => $match['range_token_explicit'],
+                    'repetition' => (int) $match['range_repetition']
+                ];
+            } else if (!empty($match['range_token_implicit'])) {
+                $tokens[] = [
+                    'type' => 'range',
+                    'token' => $match['range_token_implicit'],
+                    'repetition' => 1
+                ];
+            } else if (!empty($match['literal_string'])) {
                 $tokens[] = [
                     'type' => 'literal',
                     'string' => $match['literal_string']
-                ];
-            } else if (!empty($match['range_explicit_token'])) {
-                $tokens[] = [
-                    'type' => 'range',
-                    'token' => $match['range_explicit_token'],
-                    'repetition' => (int) $match['range_explicit_repetition']
-                ];
-            } else if (!empty($match['range_implicit_token'])) {
-                $tokens[] = [
-                    'type' => 'range',
-                    'token' => $match['range_implicit_token'],
-                    'repetition' => 1
                 ];
             }
         }
