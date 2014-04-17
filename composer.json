@@ -1,0 +1,27 @@
+{
+	"name": "gajus/parsley",
+	"version": "0.1.1",
+	"description": "",
+	"keywords": ["parser"],
+	"homepage": "https://github.com/gajus/parsley",
+	"type": "library",
+	"license": "BSD-3-Clause",
+	"authors": [
+		{
+			"name": "Gajus Kuizinas",
+			"email": "gk@anuary.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4"
+	},
+	"require-dev": {
+	    "satooshi/php-coveralls": "dev-master",
+	    "psr/log": "1.0.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Gajus\\Parsley\\": "src/"
+		}
+	}
+}
