@@ -29,8 +29,8 @@ class Generator {
      * @return array
      */
     public function generateFromPattern ($pattern, $amount = 1, $safeguard = 100) {
-        $parser = new \Gajus\Parsley\Parser();
-        $tokens = $parser->tokenise($pattern, true);
+        $lexer = new \Gajus\Parsley\Lexer();
+        $tokens = $lexer->tokenise($pattern, true);
 
         $codes = array_fill(0, $amount + $safeguard, '');
 

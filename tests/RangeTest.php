@@ -4,7 +4,7 @@ class RangeTest extends PHPUnit_Framework_TestCase {
      * @dataProvider alphabeticalProvider
      */
     public function testAlphabetical ($range_defition, $haystack) {
-        $this->assertSame($haystack, \Gajus\Parsley\Parser::expandRange($range_defition));
+        $this->assertSame($haystack, \Gajus\Parsley\Lexer::expandRange($range_defition));
     }
 
     public function alphabeticalProvider () {
@@ -22,7 +22,7 @@ class RangeTest extends PHPUnit_Framework_TestCase {
      * @expectedExceptionMessage Invalid range definition. Start greater than end.
      */
     public function testInvalid ($range_defition) {
-        \Gajus\Parsley\Parser::expandRange($range_defition);
+        \Gajus\Parsley\Lexer::expandRange($range_defition);
     }
 
     public function invalidProvider () {
@@ -36,7 +36,7 @@ class RangeTest extends PHPUnit_Framework_TestCase {
      * @dataProvider composedProvider
      */
     public function testComposed ($range_defition, $haystack) {
-        $this->assertSame($haystack, \Gajus\Parsley\Parser::expandRange($range_defition));
+        $this->assertSame($haystack, \Gajus\Parsley\Lexer::expandRange($range_defition));
     }
 
     public function composedProvider () {
