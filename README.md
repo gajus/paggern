@@ -11,6 +11,15 @@ Pattern interpreter for generating random strings.
 
 ```php
 generator = new \Gajus\Parsley\Generator();
+/**
+ * Generate a set of random codes based on Parsley pattern.
+ * Codes are guaranteed to be unique within the set.
+ *
+ * @param string $pattern Parsley pattern.
+ * @param int $amount Number of codes to generate.
+ * @param int $safeguard Number of additional codes generated in case there are duplicates that need to be replaced.
+ * @return array
+ */
 $codes = $generator->generateFromPattern('FOO[A-Z]{10}[0-9]{2}', 100);
 ```
 
@@ -20,9 +29,11 @@ Parsley utilises [RandomLib](https://github.com/ircmaxell/RandomLib) to generate
 
 ## Parser
 
-Parser exposes a method to tokenise the string. Parsley Parser is independant of the generator. The two can be used separately.
+Parser exposes a method to tokenise the string. `Parser` is independant of the `Generator`. You can choose to interpret `Parser` tokens using your own implementation of the `Generator`.
 
 ```php
+$parser = new \Gajus\Parsley\Parser();
+
 /**
  * Tokeniser explodes input into components describing the properties expressed in the pattern.
  *
@@ -49,8 +60,6 @@ $parser->tokenise('[a-c]{3}[1-3]{3}', true);
     ]
 ]
 ```
-
-
 
 ### Supported Tokens
 

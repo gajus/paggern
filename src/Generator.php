@@ -20,11 +20,13 @@ class Generator {
     }
 
     /**
-     * The returned codes are guaranteed to be unique in the set.
+     * Generate a set of random codes based on Parsley pattern.
+     * Codes are guaranteed to be unique within the set.
      *
      * @param string $pattern Parsley pattern.
      * @param int $amount Number of codes to generate.
      * @param int $safeguard Number of additional codes generated in case there are duplicates that need to be replaced.
+     * @return array
      */
     public function generateFromPattern ($pattern, $amount = 1, $safeguard = 100) {
         $parser = new \Gajus\Parsley\Parser();
