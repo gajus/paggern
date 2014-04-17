@@ -1,13 +1,13 @@
 <?php
 class RangeTest extends PHPUnit_Framework_TestCase {
     /**
-     * @dataProvider alphabeticalRangeProvider
+     * @dataProvider alphabeticalProvider
      */
-    public function testAlphabeticalRange ($range_defition, $haystack) {
+    public function testAlphabetical ($range_defition, $haystack) {
         $this->assertSame($haystack, \Gajus\Parsley\Parser::expandRange($range_defition));
     }
 
-    public function alphabeticalRangeProvider () {
+    public function alphabeticalProvider () {
         return [
             ['a-z', 'abcdefghijklmnopqrstuvwxyz'],
             ['A-Z', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'],
@@ -17,18 +17,33 @@ class RangeTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @dataProvider invalidRangeProvider
+     * @dataProvider invalidProvider
      * @expectedException Gajus\Parsley\Exception\LogicException
      * @expectedExceptionMessage Invalid range definition. Start greater than end.
      */
-    public function testInvalidRange ($range_defition) {
+    public function testInvalid ($range_defition) {
         \Gajus\Parsley\Parser::expandRange($range_defition);
     }
 
-    public function invalidRangeProvider () {
+    public function invalidProvider () {
         return [
             ['z-a'],
             ['9-0']
+        ];
+    }
+
+    /**
+     * @dataProvider composedProvider
+     */
+    public function testComposed ($range_defition, $haystack) {
+        $this->assertSame($haystack, \Gajus\Parsley\Parser::expandRange($range_defition));
+    }
+
+    public function composedProvider () {
+        return [
+            ['a-c0-3', 'abc0123'],
+            ['abc0-3', 'abc0123'],
+            ['a-ca-c', 'abc']
         ];
     }
 }

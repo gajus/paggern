@@ -98,7 +98,8 @@ class Parser {
             return $haystack;
         }, $range_definition);
 
-        #die(var_dump($haystack));
+        // Remove overlaping characters.
+        $haystack = implode('', array_unique(str_split($haystack)));
 
         return $haystack;
     }

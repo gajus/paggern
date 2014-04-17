@@ -15,4 +15,5 @@ A-Z
 
 ## Limitations
 
-Pattern cannot include `[]{}` characters.
+* Pattern cannot include `[]{}` characters.
+* Pattern cannot include characters outside ASCII.
