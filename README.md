@@ -10,7 +10,8 @@ Pattern interpreter for generating random strings.
 ## Generator
 
 ```php
-generator = new \Gajus\Parsley\Generator();
+$generator = new \Gajus\Parsley\Generator();
+
 /**
  * Generate a set of random codes based on Parsley pattern.
  * Codes are guaranteed to be unique within the set.
