@@ -41,7 +41,7 @@ class Parser {
                     (?<range_token_implicit>[^]]+)
                 \]
             |
-                (?<literal_string>[^[]+)
+                (?<literal_string>[^\\\[]+)
 
         /x
         ', $pattern, $matches, \PREG_SET_ORDER);

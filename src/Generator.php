@@ -24,26 +24,26 @@ class Generator {
         $factory = new \RandomLib\Factory;
         $generator = $factory->getGenerator(new \SecurityLib\Strength(\SecurityLib\Strength::MEDIUM));
         
-        foreach ($tokens as $i => $token) {
-            if ($token['type'] === 'literal') {
-                #$token_pool[$i][] = $token['string'];
-            } else {
-                $token_pool[$i] = $generator->generateString($token['repetition'] * ($amount + $safeguard), $token['haystack']);
+        foreach ($tokens as &$token) {
+            if ($token['type'] !== 'literal') {
+                $token['pool'] = $generator->generateString($token['repetition'] * ($amount + $safeguard), $token['haystack']);
             }
+
+            unset($token);
         }
 
-        die(var_dump( $token_pool ));
+        #die(var_dump( $tokens ));
 
-        /*foreach ($codes as &$code) {
+        foreach ($codes as $i => &$code) {
             foreach ($tokens as $token) {
                 if ($token['type'] === 'literal') {
                     $code .= $token['string'];
-                } else if ($token['type'] === 'range') {
-                    die(var_dump( $token ));
                 } else {
-                    throw new Exception\UnexpectedValueException('Unexpected token type.');
+                    $code .= mb_substr($token['pool'], $token['repetition'] * $i, $token['repetition']);
                 }
             }
+
+            unset($code);
         }
 
         $codes = array_slice(array_unique($codes), 0, $amount);
@@ -52,6 +52,6 @@ class Generator {
             throw new Exception\RuntimeException('Unique combination pool exhausted.');
         }
 
-        return $codes;*/
+        return $codes;
     }
 }

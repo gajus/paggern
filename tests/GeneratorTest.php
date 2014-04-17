@@ -1,21 +1,31 @@
 <?php
 class GeneratorTest extends PHPUnit_Framework_TestCase {
-    /*public function testLiteral () {
+    public function testLiteral () {
         $generator = new \Gajus\Parsley\Generator();
-        $vouchers = $generator->generateFromPattern('abc');
+        $codes = $generator->generateFromPattern('abc');
 
-        $this->assertCount(1, $vouchers);
-        $this->assertSame(['abc'], $vouchers);
-    }*/
+        $this->assertCount(1, $codes);
+        $this->assertSame(['abc'], $codes);
+    }
 
     public function testRange () {
         $generator = new \Gajus\Parsley\Generator();
-        $vouchers = $generator->generateFromPattern('[a-z]');
+        $codes = $generator->generateFromPattern('[a-c]');
 
-        die(var_dump( $vouchers ));
+        $this->assertCount(1, $codes);
+        $this->assertContains($codes[0], ['a', 'b', 'c']);
+    }
 
-        $this->assertCount(1, $vouchers);
-        #$this->assertSame(['abc'], $vouchers);
+    public function testClass () {
+        $generator = new \Gajus\Parsley\Generator();
+        $codes = $generator->generateFromPattern('\U{10}', 100);
+
+        $this->assertCount(100, $codes);
+        
+        foreach ($codes as $code) {
+            $this->assertRegExp('/^[ABCDEFGHKMNOPRSTUVWXYZ23456789]{10}$/', $code);
+        }
+
     }
 
     /**
@@ -24,6 +34,6 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
      */
     public function testUniquePoolExhaustion () {
         $generator = new \Gajus\Parsley\Generator();
-        $vouchers = $generator->generateFromPattern('abc', 2);
+        $codes = $generator->generateFromPattern('abc', 2);
     }
 }

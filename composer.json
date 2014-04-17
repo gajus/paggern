@@ -13,7 +13,8 @@
 		}
 	],
 	"require": {
-		"php": ">=5.4"
+		"php": ">=5.4",
+		"ircmaxell/random-lib": "dev-master"
 	},
 	"require-dev": {
 	    "satooshi/php-coveralls": "dev-master"

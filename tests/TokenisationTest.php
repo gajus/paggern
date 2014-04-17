@@ -34,10 +34,10 @@ class TokenisationTest extends PHPUnit_Framework_TestCase {
 
     public function testClassExplicit () {
         $parser = new \Gajus\Parsley\Parser();
-        $tokens = $parser->tokenise('\U{6}');
+        $tokens = $parser->tokenise('\U{10}');
 
         $this->assertCount(1, $tokens);
-        $this->assertSame(['type' => 'class', 'class' => \Gajus\Parsley\Parser::CLASS_UPPERCASE_UNAMBIGUOUS, 'repetition' => 6], $tokens[0]);
+        $this->assertSame(['type' => 'class', 'class' => \Gajus\Parsley\Parser::CLASS_UPPERCASE_UNAMBIGUOUS, 'repetition' => 10], $tokens[0]);
     }
 
     public function testCombined () {
