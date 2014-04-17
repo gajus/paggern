@@ -13,6 +13,6 @@ A-Z
 0-9
 ```
 
-## Logging
+## Limitations
 
-Implements [PSR-3](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md) `LoggerAwareInterface`.
+Pattern cannot include `[]{}` characters.
