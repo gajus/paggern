@@ -18,9 +18,43 @@ The above example will generate an array containing 100 codes, each prefixed wit
 
 Parsley utilises [RandomLib](https://github.com/ircmaxell/RandomLib) to generate the pattern matching random character pool.
 
-## Supported Tokens
+## Parser
 
-### Literal
+Parser exposes a method to tokenise the string. Parsley Parser is independant of the generator. The two can be used separately.
+
+```php
+/**
+ * Tokeniser explodes input into components describing the properties expressed in the pattern.
+ *
+ * @param string $pattern
+ * @param boolean $expand Augment token definition with the haystack of possible values.
+ * @return array
+ */
+$parser->tokenise('[a-c]{3}[1-3]{3}', true);
+```
+
+```php
+[
+    [
+        'type' => 'range',
+        'token' => 'a-c',
+        'repetition' => 3,
+        'haystack' => 'abc'
+    ],
+    [
+        'type' => 'range',
+        'token' => '1-3',
+        'repetition' => 3,
+        'haystack' => 123
+    ]
+]
+```
+
+
+
+### Supported Tokens
+
+#### Literal
 
 Pattern can consist of literal characters, e.g. prefix of suffix of the code.
 
@@ -39,7 +73,7 @@ $parser->tokenise('abc');
 
 The above pattern commands that the string is literally "abc".
 
-### Range
+#### Range
 
 Range can be either numeric or ASCII.
 
@@ -59,7 +93,7 @@ In the `[a-z]` example, string must be a character from "abcdefghijklmnopqrstuvw
 ]
 ```
 
-### Range with Repetition
+#### Range with Repetition
 
 If the character must occur more than once, use repetition.
 
@@ -79,7 +113,7 @@ In the `[a-z]{3}` example, string must consist of 3 characters from the "abc" ha
 ]
 ```
 
-### Character Classes
+#### Character Classes
 
 Predefined character classes can be used instead of ranges.
 
@@ -87,7 +121,7 @@ Predefined character classes can be used instead of ranges.
 |---|---|
 |`\U`|"ABCDEFGHKMNOPRSTUVWXYZ23456789" (or A-Z0-9 excluding IJLQ01) describes characters that are unambiguously recognised regardless of the font or case-sensitivity. The designated use case is voucher codes.|
 
-### Character Classes with Repetition
+#### Character Classes with Repetition
 
 Similar to the Range with Repetition, Character Classes can be used with repetition, e.g.
 
@@ -98,4 +132,4 @@ $parser->tokenise('\U{3}');
 ## Limitations
 
 * Pattern cannot include `[]{}` characters.
-* Pattern cannot include characters outside ASCII.
+* Pattern cannot include characters outside of the ASCII.

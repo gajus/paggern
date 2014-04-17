@@ -16,8 +16,10 @@ class Parser {
         $logger;
 
     /**
+     * Tokeniser explodes input into components describing the properties expressed in the pattern.
+     *
      * @param string $pattern
-     * @param boolean $expand
+     * @param boolean $expand Augment token definition with the haystack of possible values.
      * @return array
      */
     public function tokenise ($pattern, $expand = false) {
