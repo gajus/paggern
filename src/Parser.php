@@ -17,9 +17,10 @@ class Parser {
 
     /**
      * @param string $pattern
+     * @param boolean $expand
      * @return array
      */
-    public function tokenise ($subject) {
+    public function tokenise ($pattern, $expand = false) {
         preg_match_all('
         /
                 (?<class_U_explicit>\\\U)
@@ -43,36 +44,60 @@ class Parser {
                 (?<literal_string>[^[]+)
 
         /x
-        ', $subject, $matches, \PREG_SET_ORDER);
+        ', $pattern, $matches, \PREG_SET_ORDER);
 
         $tokens = [];
 
         foreach ($matches as $match) {
             
             if (!empty($match['class_U_explicit'])) {
-                $tokens[] = [
+                $token = [
                     'type' => 'class',
                     'class' => static::CLASS_UPPERCASE_UNAMBIGUOUS,
                     'repetition' => (int) $match['class_U_repetition']
                 ];
+
+                if ($expand) {
+                    $token['haystack'] = 'ABCDEFGHKMNOPRSTUVWXYZ23456789';
+                }
+
+                $tokens[] = $token;
             } else if (!empty($match['class_U_implicit'])) {
-                $tokens[] = [
+                $token = [
                     'type' => 'class',
                     'class' => static::CLASS_UPPERCASE_UNAMBIGUOUS,
                     'repetition' => 1
                 ];
+
+                if ($expand) {
+                    $token['haystack'] = 'ABCDEFGHKMNOPRSTUVWXYZ23456789';
+                }
+
+                $tokens[] = $token;
             } else if (!empty($match['range_token_explicit'])) {
-                $tokens[] = [
+                $token = [
                     'type' => 'range',
                     'token' => $match['range_token_explicit'],
                     'repetition' => (int) $match['range_repetition']
                 ];
+
+                if ($expand) {
+                    $token['haystack'] = static::expandRange($match['range_token_explicit']);
+                }
+
+                $tokens[] = $token;
             } else if (!empty($match['range_token_implicit'])) {
-                $tokens[] = [
+                $token = [
                     'type' => 'range',
                     'token' => $match['range_token_implicit'],
                     'repetition' => 1
                 ];
+
+                if ($expand) {
+                    $token['haystack'] = static::expandRange($match['range_token_implicit']);
+                }
+
+                $tokens[] = $token;
             } else if (!empty($match['literal_string'])) {
                 $tokens[] = [
                     'type' => 'literal',

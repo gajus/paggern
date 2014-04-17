@@ -55,7 +55,7 @@ Predefined character classes can be used instead of ranges.
 
 |Character Class|Range|
 |---|---|
-|`\U`|(unambiguous) "ABCDEFGHKMNOPRSTUVWXYZ23456789" (or A-Z0-9 excluding IJLQ01) describes characters that are unambiguously recognised regardless of the font or case-sensitivity. The designated use case is voucher codes.|
+|`\U`|"ABCDEFGHKMNOPRSTUVWXYZ23456789" (or A-Z0-9 excluding IJLQ01) describes characters that are unambiguously recognised regardless of the font or case-sensitivity. The designated use case is voucher codes.|
 
 ### Character Classes with Repetition
 
