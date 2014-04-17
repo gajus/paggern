@@ -22,17 +22,22 @@ Parsley utilises [RandomLib](https://github.com/ircmaxell/RandomLib) to generate
 
 ### Literal
 
-Pattern can consist of literal characters, e.g. prefix of suffix of the string.
+Pattern can consist of literal characters, e.g. prefix of suffix of the code.
 
 ```php
 $parser->tokenise('abc');
 ```
 
 ```php
-output
+[
+    [
+        'type' => 'literal',
+        'string' => 'abc'
+    ]
+]
 ```
 
-The above pattern insists that the string is literally "abc".
+The above pattern commands that the string is literally "abc".
 
 ### Range
 
@@ -45,18 +50,34 @@ $parser->tokenise('[a-z]');
 In the `[a-z]` example, string must be a character from "abcdefghijklmnopqrstuvwxyz" haystack.
 
 ```php
-output
+[
+    [
+        'type' => 'range',
+        'token' => 'a-z',
+        'repetition' => 1
+    ]
+]
 ```
 
 ### Range with Repetition
 
 If the character must occur more than once, use repetition.
 
-```
+```php
 $parser->tokenise('[a-c]{3}');
 ```
 
 In the `[a-z]{3}` example, string must consist of 3 characters from the "abc" haystack.
+
+```php
+[
+    [
+        'type' => 'range',
+        'token' => 'a-c',
+        'repetition' => 3
+    ]
+]
+```
 
 ### Character Classes
 
