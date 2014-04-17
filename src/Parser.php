@@ -6,6 +6,9 @@ namespace Gajus\Parsley;
  * @license https://github.com/gajus/parsley/blob/master/LICENSE BSD 3-Clause
  */
 class Parser {
+    const
+        CLASS_UPPERCASE_UNAMBIGUOUS = 1;
+
     private
         /**
          * @var Psr\Log\LoggerInterface
@@ -19,12 +22,12 @@ class Parser {
     public function tokenise ($subject) {
         preg_match_all('
         /
-                (?<class_explicit>\\\U)
+                (?<class_U_explicit>\\\U)
                 \{
-                    (?<class_repetition>[0-9]+)
+                    (?<class_U_repetition>[0-9]+)
                 \}
             |
-                (?<class_implicit>\\\U)
+                (?<class_U_implicit>\\\U)
             |
                 \[
                     (?<range_token_explicit>[^]]+)
@@ -46,16 +49,16 @@ class Parser {
 
         foreach ($matches as $match) {
             
-            if (!empty($match['class_explicit'])) {
+            if (!empty($match['class_U_explicit'])) {
                 $tokens[] = [
                     'type' => 'class',
-                    'class' => $match['class_explicit'],
-                    'repetition' => (int) $match['class_repetition']
+                    'class' => static::CLASS_UPPERCASE_UNAMBIGUOUS,
+                    'repetition' => (int) $match['class_U_repetition']
                 ];
-            } else if (!empty($match['class_implicit'])) {
+            } else if (!empty($match['class_U_implicit'])) {
                 $tokens[] = [
                     'type' => 'class',
-                    'class' => $match['class_implicit'],
+                    'class' => static::CLASS_UPPERCASE_UNAMBIGUOUS,
                     'repetition' => 1
                 ];
             } else if (!empty($match['range_token_explicit'])) {

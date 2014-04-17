@@ -29,15 +29,15 @@ class TokenisationTest extends PHPUnit_Framework_TestCase {
         $tokens = $parser->tokenise('\U');
 
         $this->assertCount(1, $tokens);
-        $this->assertSame(['type' => 'class', 'class' => '\U', 'repetition' => 1], $tokens[0]);
+        $this->assertSame(['type' => 'class', 'class' => \Gajus\Parsley\Parser::CLASS_UPPERCASE_UNAMBIGUOUS, 'repetition' => 1], $tokens[0]);
     }
 
     public function testClassExplicit () {
         $parser = new \Gajus\Parsley\Parser();
-        $tokens = $parser->tokenise('\U{3}');
+        $tokens = $parser->tokenise('\U{6}');
 
         $this->assertCount(1, $tokens);
-        #$this->assertSame(['type' => 'literal', 'string' => 'abc'], $tokens[0]);
+        $this->assertSame(['type' => 'class', 'class' => \Gajus\Parsley\Parser::CLASS_UPPERCASE_UNAMBIGUOUS, 'repetition' => 6], $tokens[0]);
     }
 
     public function testCombined () {
@@ -48,7 +48,7 @@ class TokenisationTest extends PHPUnit_Framework_TestCase {
         $this->assertSame(['type' => 'literal', 'string' => 'abc'], $tokens[0]);
         $this->assertSame(['type' => 'range', 'token' => 'a-z', 'repetition' => 2], $tokens[1]);
         $this->assertSame(['type' => 'range', 'token' => '0-9', 'repetition' => 1], $tokens[2]);
-        $this->assertSame(['type' => 'class', 'class' => '\U', 'repetition' => 1], $tokens[3]);
-        $this->assertSame(['type' => 'class', 'class' => '\U', 'repetition' => 3], $tokens[4]);
+        $this->assertSame(['type' => 'class', 'class' => \Gajus\Parsley\Parser::CLASS_UPPERCASE_UNAMBIGUOUS, 'repetition' => 1], $tokens[3]);
+        $this->assertSame(['type' => 'class', 'class' => \Gajus\Parsley\Parser::CLASS_UPPERCASE_UNAMBIGUOUS, 'repetition' => 3], $tokens[4]);
     }
 }
