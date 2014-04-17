@@ -45,13 +45,13 @@ class Parser {
                 ];
             } else if (!empty($match['range_explicit_token'])) {
                 $tokens[] = [
-                    'type' => 'range 1',
+                    'type' => 'range',
                     'token' => $match['range_explicit_token'],
-                    'repetition' => $match['range_explicit_repetition']
+                    'repetition' => (int) $match['range_explicit_repetition']
                 ];
             } else if (!empty($match['range_implicit_token'])) {
                 $tokens[] = [
-                    'type' => 'range 2',
+                    'type' => 'range',
                     'token' => $match['range_implicit_token'],
                     'repetition' => 1
                 ];
@@ -60,6 +60,46 @@ class Parser {
 
         return $tokens;
     }
-}
 
-/**/
+    /**
+     * @param string $range_definition Set of characters defined individually, using range or both.
+     * @return string All characters that fit in the range.
+     */
+    static public function expandRange ($range_definition) {
+        $haystack = preg_replace_callback('/(?<from>.)\-(?<to>.)/', function ($e) {
+            if (is_numeric($e['from']) || is_numeric($e['to'])) {
+                $from = $e['from'];
+                $to = $e['to'];
+
+                if ($from > $to) {
+                    throw new Exception\LogicException('Invalid range definition. Start greater than end.');
+                }
+
+                $haystack = '';
+
+                for ($from; $from <= $to; $from++) {
+                    $haystack .= $from;
+                }
+            } else {
+                $from = ord($e['from']);
+                $to = ord($e['to']);
+
+                if ($from > $to) {
+                    throw new Exception\LogicException('Invalid range definition. Start greater than end.');
+                }
+
+                $haystack = '';
+
+                for ($from; $from <= $to; $from++) {
+                    $haystack .= chr($from);
+                }
+            }
+
+            return $haystack;
+        }, $range_definition);
+
+        #die(var_dump($haystack));
+
+        return $haystack;
+    }
+}
