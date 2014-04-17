@@ -1,8 +1,8 @@
 {
 	"name": "gajus/parsley",
 	"version": "0.1.1",
-	"description": "",
-	"keywords": ["parser"],
+	"description": "Pattern interpreter for generating random strings.",
+	"keywords": ["parser", "generator", "voucher", "code"],
 	"homepage": "https://github.com/gajus/parsley",
 	"type": "library",
 	"license": "BSD-3-Clause",
