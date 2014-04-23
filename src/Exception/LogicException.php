@@ -1,10 +1,10 @@
 <?php
-namespace Gajus\Parsley\Exception;
+namespace Gajus\Paggern\Exception;
 
 /**
- * @link https://github.com/gajus/parsley for the canonical source repository
- * @license https://github.com/gajus/parsley/blob/master/LICENSE BSD 3-Clause
+ * @link https://github.com/gajus/paggern for the canonical source repository
+ * @license https://github.com/gajus/paggern/blob/master/LICENSE BSD 3-Clause
  */
-class LogicException extends ParsleyException {
+class LogicException extends PaggernException {
     
 }

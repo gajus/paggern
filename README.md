@@ -1,22 +1,22 @@
-# Parsley
+# Paggern
 
-[![Build Status](https://travis-ci.org/gajus/parsley.png?branch=master)](https://travis-ci.org/gajus/parsley)
-[![Coverage Status](https://coveralls.io/repos/gajus/parsley/badge.png?branch=master&cache=123)](https://coveralls.io/r/gajus/parsley?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/gajus/parsley/version.png)](https://packagist.org/packages/gajus/parsley)
-[![License](https://poser.pugx.org/gajus/parsley/license.png)](https://packagist.org/packages/gajus/parsley)
+[![Build Status](https://travis-ci.org/gajus/paggern.png?branch=master)](https://travis-ci.org/gajus/paggern)
+[![Coverage Status](https://coveralls.io/repos/gajus/paggern/badge.png?branch=master&cache=123)](https://coveralls.io/r/gajus/paggern?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/gajus/paggern/version.png)](https://packagist.org/packages/gajus/paggern)
+[![License](https://poser.pugx.org/gajus/paggern/license.png)](https://packagist.org/packages/gajus/paggern)
 
 Pattern interpreter for generating random strings.
 
 ## Generator
 
 ```php
-$generator = new \Gajus\Parsley\Generator();
+$generator = new \Gajus\Paggern\Generator();
 
 /**
- * Generate a set of random codes based on Parsley pattern.
+ * Generate a set of random codes based on Paggern pattern.
  * Codes are guaranteed to be unique within the set.
  *
- * @param string $pattern Parsley pattern.
+ * @param string $pattern Paggern pattern.
  * @param int $amount Number of codes to generate.
  * @param int $safeguard Number of additional codes generated in case there are duplicates that need to be replaced.
  * @return array
@@ -26,14 +26,14 @@ $codes = $generator->generateFromPattern('FOO[A-Z]{10}[0-9]{2}', 100);
 
 The above example will generate an array containing 100 codes, each prefixed with "FOO", followed by 10 characters from "ABCDEFGHKMNOPRSTUVWXYZ23456789" haystack and 2 numbers from "0123456789" haystack.
 
-Parsley utilises [RandomLib](https://github.com/ircmaxell/RandomLib) to generate the pattern matching random character pool.
+Paggern utilises [RandomLib](https://github.com/ircmaxell/RandomLib) to generate the pattern matching random character pool.
 
 ## Lexer
 
 Lexer exposes a method to tokenise the string. `Lexer` is independant of the `Generator`. You can choose to interpret `Lexer` tokens using your own implementation of the `Generator`.
 
 ```php
-$lexer = new \Gajus\Parsley\Lexer();
+$lexer = new \Gajus\Paggern\Lexer();
 
 /**
  * Tokeniser explodes input into components describing the properties expressed in the pattern.

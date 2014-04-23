@@ -1,9 +1,9 @@
 {
-	"name": "gajus/parsley",
+	"name": "gajus/paggern",
 	"version": "0.1.1",
 	"description": "Pattern interpreter for generating random strings.",
 	"keywords": ["parser", "generator", "voucher", "code"],
-	"homepage": "https://github.com/gajus/parsley",
+	"homepage": "https://github.com/gajus/paggern",
 	"type": "library",
 	"license": "BSD-3-Clause",
 	"authors": [
@@ -21,7 +21,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Gajus\\Parsley\\": "src/"
+			"Gajus\\Paggern\\": "src/"
 		}
 	}
 }

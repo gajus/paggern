@@ -1,9 +1,9 @@
 <?php
-namespace Gajus\Parsley;
+namespace Gajus\Paggern;
 
 /**
- * @link https://github.com/gajus/parsley for the canonical source repository
- * @license https://github.com/gajus/parsley/blob/master/LICENSE BSD 3-Clause
+ * @link https://github.com/gajus/paggern for the canonical source repository
+ * @license https://github.com/gajus/paggern/blob/master/LICENSE BSD 3-Clause
  */
 class Generator {
     private
@@ -20,16 +20,16 @@ class Generator {
     }
 
     /**
-     * Generate a set of random codes based on Parsley pattern.
+     * Generate a set of random codes based on Paggern pattern.
      * Codes are guaranteed to be unique within the set.
      *
-     * @param string $pattern Parsley pattern.
+     * @param string $pattern Paggern pattern.
      * @param int $amount Number of codes to generate.
      * @param int $safeguard Number of additional codes generated in case there are duplicates that need to be replaced.
      * @return array
      */
     public function generateFromPattern ($pattern, $amount = 1, $safeguard = 100) {
-        $lexer = new \Gajus\Parsley\Lexer();
+        $lexer = new \Gajus\Paggern\Lexer();
         $tokens = $lexer->tokenise($pattern, true);
 
         $codes = array_fill(0, $amount + $safeguard, '');

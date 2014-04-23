@@ -1,7 +1,7 @@
 <?php
 class GeneratorTest extends PHPUnit_Framework_TestCase {
     public function testLiteral () {
-        $generator = new \Gajus\Parsley\Generator();
+        $generator = new \Gajus\Paggern\Generator();
         $codes = $generator->generateFromPattern('abc');
 
         $this->assertCount(1, $codes);
@@ -9,7 +9,7 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testRange () {
-        $generator = new \Gajus\Parsley\Generator();
+        $generator = new \Gajus\Paggern\Generator();
         $codes = $generator->generateFromPattern('[a-c]');
 
         $this->assertCount(1, $codes);
@@ -17,7 +17,7 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testClass () {
-        $generator = new \Gajus\Parsley\Generator();
+        $generator = new \Gajus\Paggern\Generator();
         $codes = $generator->generateFromPattern('\U{10}', 100);
 
         $this->assertCount(100, $codes);
@@ -29,11 +29,11 @@ class GeneratorTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @expectedException Gajus\Parsley\Exception\RuntimeException
+     * @expectedException Gajus\Paggern\Exception\RuntimeException
      * @expectedExceptionMessage Unique combination pool exhausted.
      */
     public function testUniquePoolExhaustion () {
-        $generator = new \Gajus\Parsley\Generator();
+        $generator = new \Gajus\Paggern\Generator();
         $codes = $generator->generateFromPattern('abc', 2);
     }
 }
