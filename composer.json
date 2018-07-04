@@ -14,14 +14,14 @@
 	],
 	"require": {
 		"php": ">=5.4",
-		"ircmaxell/random-lib": "dev-master"
-	},
-	"require-dev": {
-	    "satooshi/php-coveralls": "dev-master"
+		"ircmaxell/random-lib": "^1.2"
 	},
 	"autoload": {
 		"psr-4": {
 			"Gajus\\Paggern\\": "src/"
 		}
+	},
+	"require-dev": {
+		"satooshi/php-coveralls": "^2.0"
 	}
 }
